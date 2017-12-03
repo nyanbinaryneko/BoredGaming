@@ -14,7 +14,7 @@ def home(request):
         request,
         'app/index.html',
         {
-            'title':'Home Page',
+            'title':'BoredGaming',
             'year':datetime.now().year,
         }
     )
@@ -39,8 +39,8 @@ def about(request):
         request,
         'app/about.html',
         {
-            'title':'About',
-            'message':'Your application description page.',
+            'title':'BoredGaming.io',
+            'message':'Your favorite group finder.',
             'year':datetime.now().year,
         }
     )

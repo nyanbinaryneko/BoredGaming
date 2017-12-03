@@ -2,9 +2,55 @@
 
 {% block content %}
 
-<h2>{{ title }}.</h2>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="jumbotron">
+            <h1 class="display-3">
+                {{ title }}
+            </h1>
+            <h2>
+                {{ message }}
+            </h2>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <h3 class="card-header"><a name="#group">Find your perfect group.</a></h3>
+            <div class="card-body">
+                <p>
+                    Online, in person, at your local game store, it doesn't matter. Find people that want to play with you.
+                    Schedule meeting times, days, everything...and get an email reminder. (Calendar invites coming soon!)
+                    Your character profile has all your contact information!
+                </p>
+                <p>
+                    Want to play with other people in real life? Are you in need of human contact and connection? Find people within 20 miles of your location to play with!
+                    BoredGaming.io is hub based so you can share your favorite places to game. If you are new to an area, you can see active gaming hubs where you can have a pick up game, making this perfect 
+                    for the travelling TCG player and board gamer alike!
+                    <span class="text-danger"><strong>Remember to practice basic internet safety. Never meet a stranger in real life.</strong></span> Consider playing at a local game store 
+                    instead and take advantage of being at a hub.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row info-row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <h3 class="card-header"><a name="#community">Build your gaming community.</a></h3>
+            <div class="card-body">
+                <p>
+                    Board gaming, TCGs, and table top gaming is social. Part of being social is growing and expanding your community. Rate your experiences, share your favorite gaming spots, and
+                    favorite games. Build your profile so others can see how you like to game. Be social and build a community for all gamers!
+                </p> 
+            </div>
+        </div>
+    </div>
+</div>
+<!--<h2>{{ title }}.</h2>
 <h3>{{ message }}</h3>
 
-<p>Use this area to provide additional information.</p>
+<p>Use this area to provide additional information.</p>-->
 
 {% endblock %}
