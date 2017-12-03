@@ -1,0 +1,83 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }} - My Django Application</title>
+    {% load staticfiles %}
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/flatly.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/font-awesome.css' %}">
+    <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
+</head>
+
+<body>
+    <header class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <nav class="container">
+            <a href="/" class="navbar-brand">BoredGaming</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTop" aria-controls="navbarTop" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTop">
+                <ul class="navbar-nav mr_auto">
+                    <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'home' %}">Home</a>
+                    </li>
+                    <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
+                        <a class="nav-link" href="{% url 'about' %}">About</a>
+                    </li>
+                    <li class="nav-item {% if request.resolver_match.url_name == 'contact' %}active{% endif %}">
+                        <a class="nav-link" href='{% url 'contact'%}'>Contact</a>
+                    </li>
+                </ul>
+                <!-- {% include 'app/loginpartial.html' %} -->
+            </div>
+        </nav>
+    </header>
+
+    <div class="container main-content">
+        {% block content %}{% endblock %}  
+    </div>
+    <footer class="bg-primary">
+        <div class="container">
+            <div class="row footer-row">
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 class="footer-title">BoredGaming.io</h3>
+                        </div>
+                        <div class="col-sm-12">
+                            <p class="copyright">&copy; {{ year }} - Ali Neer</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <a href="https://www.patreon.com/bePatron?u=8671490" data-patreon-widget-type="become-patron-button">Become a Patron!</a>
+                            <script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>
+                        </div>
+                        <div class="col-sm-12 space">
+                            <script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Buy Me a Coffee', '#46b798', 'O5O262BI');kofiwidget2.draw();</script> 
+                        </div>   
+                        <div class="col-sm-12 space">
+                            <a href="https://www.paypal.me/alikoneko"><i class="fa fa-paypal"></i>PayPal</a>
+                        </div>
+                     </div>      
+                </div>
+                <div class="col-lg-4 col-md-4 col-sm-12">
+                    <a href="wwww.alineer.com">Ali Neer</a>
+                </div>
+            </div>
+        </div>
+        
+    </footer>
+    <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
+    <script src="{% static 'app/scripts/respond.js' %}"></script>
+{% block scripts %}{% endblock %}
+
+</body>
+</html>
