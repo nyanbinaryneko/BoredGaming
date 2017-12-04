@@ -32,7 +32,7 @@ def contact(request):
         'app/contact.html',
         {
             'title':'Contact',
-            'message':'Your contact page.',
+            'message':'Want to chat? Have a great feature idea? Drop me a line!',
             'year':datetime.now().year,
         }
     )
@@ -65,6 +65,8 @@ def about(request):
             }
         )
 
+#TODO: CHECK TO SEE IF THE EMAIL IS IN THERE MORE THAN ONCE, IF SO, THROW AN ERROR MESSAGE
+#THIS WORKS FOR NOW
 def add_email_to_mailing_list(email):
     lead = Lead()
     lead.email_address = email
