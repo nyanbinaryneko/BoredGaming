@@ -1,7 +1,16 @@
 {% extends "app/layout.html" %}
 
 {% block content %}
-
+{% if success %}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="alert alert-dismissable alert-success">
+            <button type="button" class="close" data-dismiss="alert">x</button>
+            Thank you! We'll let you know when it's time to launch. Game on!
+        </div>
+    </div>
+</div>
+{% endif %}
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="jumbotron">
@@ -44,6 +53,26 @@
                     Board gaming, TCGs, and table top gaming is social. Part of being social is growing and expanding your community. Rate your experiences, share your favorite gaming spots, and
                     favorite games. Build your profile so others can see how you like to game. Be social and build a community for all gamers!
                 </p> 
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row info-row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <h3 class="card-header">Sign up to find out when we launch!</h3>
+            <div class="card-body">
+                <p>
+                    We promise to not give away your email. This is just to let you know when we're up and running!
+                    Please check my personal dev log for updates on my progress!
+                </p>
+                <form action="/about/" method="post">
+                    {% csrf_token %}
+                    <label for="email">Email:</label>
+                    <input id="email" type="email" name="email" class="form-control"/>
+                    <br/>
+                    <input type="submit" value="Okay! Notify me when you're ready!" class="btn btn-success">
+                </form>
             </div>
         </div>
     </div>
