@@ -12,6 +12,7 @@ import app.views
 # Uncomment the next lines to enable the admin:
 from django.conf.urls import include
 from django.contrib import admin
+
 admin.autodiscover()
 
 urlpatterns = [
@@ -37,7 +38,7 @@ urlpatterns = [
             'next_page': '/',
         },
         name='logout'),
-    url(r'^signup/$', django.contrib.auths.views.signup, name='signup'),
+    url(r'^signup/$', app.views.signup, name='signup'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

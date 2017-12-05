@@ -4,6 +4,7 @@ Definition of views.
 
 from django.shortcuts import render
 from app.forms import MailingListForm
+from app.forms import SignUpForm
 from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
@@ -67,17 +68,17 @@ def about(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('home') #TODO: take user to their profile page 
+            return redirect('home')
     else:
-        form = UserCreationForm()
-    return render(request, 'signup.html', {'form': form})
+        form = SignUpForm()
+    return render(request, 'app/signup.html', {'form': form})
 
 #TODO: CHECK TO SEE IF THE EMAIL IS IN THERE MORE THAN ONCE, IF SO, THROW AN ERROR MESSAGE
 #THIS WORKS FOR NOW
