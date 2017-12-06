@@ -8,7 +8,7 @@ body {
     min-height: 75vh;
 }
 
-.jumbotron > h1,
+.jumbotron > h3,
 .card > h3,
 .footer-title,
 .navbar-brand {
