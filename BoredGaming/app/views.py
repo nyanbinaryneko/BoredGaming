@@ -18,9 +18,9 @@ def home(request):
     assert isinstance(request, HttpRequest)
     return render(
         request,
-        'app/index.html',
+        'app/landingpage.html',
         {
-            'title':'BoredGaming',
+            'title':'BoredGaming.io',
             'year':datetime.now().year,
         }
     )
@@ -32,7 +32,7 @@ def contact(request):
         request,
         'app/contact.html',
         {
-            'title':'Contact',
+            'title':'BoredGaming.io - Contact',
             'message':'Want to chat? Have a great feature idea? Drop me a line!',
             'year':datetime.now().year,
         }
@@ -47,7 +47,7 @@ def about(request):
             request,
             'app/about.html',
             {
-                'title':'BoredGaming.io',
+                'title':'BoredGaming.io - About',
                 'message':'Your favorite group finder.',
                 'year':datetime.now().year,
                 'form': MailingListForm,
@@ -59,7 +59,7 @@ def about(request):
             request,
             'app/about.html',
             {
-                'title':'BoredGaming.io',
+                'title':'BoredGaming.io - About',
                 'message':'Your favorite group finder.',
                 'year':datetime.now().year,
                 'form': MailingListForm,
@@ -78,7 +78,13 @@ def signup(request):
             return redirect('home')
     else:
         form = SignUpForm()
-    return render(request, 'app/signup.html', {'form': form})
+    return render(
+        request, 
+        'app/signup.html',
+       {
+           'title': 'BoredGaming.io - Sign Up',
+           'form': form,
+       })
 
 #TODO: CHECK TO SEE IF THE EMAIL IS IN THERE MORE THAN ONCE, IF SO, THROW AN ERROR MESSAGE
 #THIS WORKS FOR NOW

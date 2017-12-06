@@ -124,7 +124,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
+#STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
+STATIC_ROOT = 'C:\\Users\\aneer\\source\\repos\\BoredGaming\\BoredGaming\\COLLECT_STATIC\\'
 
 #Password Hashers
 PASSWORD_HASHERS = [
