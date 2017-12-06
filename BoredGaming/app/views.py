@@ -24,6 +24,17 @@ def home(request):
             lead.email_address = request.POST['email']
             lead.save()
             return HttpResponseRedirect('/about/')
+        else:
+            return render(
+                request,
+                'app/landingpage.html',
+                {
+                    'title': 'BoredGaming.io',
+                    'year': datetime.now().year,
+                    'form': MailingListForm,
+                    'error': 'Please enter an email address.',
+                 }
+              )
     else:
         return render(
             request,
