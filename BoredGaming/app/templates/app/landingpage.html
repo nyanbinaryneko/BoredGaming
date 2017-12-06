@@ -5,8 +5,10 @@
     <title>{{ title }}</title>
     {% load staticfiles %}
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/main.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/font-awesome.css' %}">
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
 </head>
 <body>
@@ -14,12 +16,16 @@
 	<!-- Header -->
 		<header id="header">
 			<h1 class="title">BoredGaming.io</h1>
-			<p>Find your perfect gaming group or TCG playgroup.<br />
+			<p class="header-text">
+                Find your perfect gaming group or TCG playgroup.<br />
+                BoredGaming.io is a matchmaker and group finder for tabletop gaming. <br />
+                Suggest an Local Game Store, coffee shop, or bar, meet and play with your new friends.
 			</p>
 		</header>
 
 	<!-- Signup Form -->
-		<form id="signup-form" method="post" action="#">
+		<form id="signup-form" method="post">
+            {% csrf_token %}
 			<input type="email" name="email" id="email" placeholder="Email Address" />
 			<input type="submit" value="Sign Up" />
 		</form>
@@ -27,10 +33,11 @@
 	<!-- Footer -->
 		<footer id="footer">
 			<ul class="icons">
-				<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-				<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
-				<li><a href="#" class="icon fa-github"><span class="label">GitHub</span></a></li>
-				<li><a href="#" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+				<li><a href="https://twitter.com/alikoneko" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+				<li><a href="https://www.github.com/alikoneko" class="icon fa-github"><span class="label">GitHub</span></a></li>
+				<li><a href="mailto:ali@alineer.com?Subject=Lets%20Talk%20BoredGaming" class="icon fa-envelope-o"><span class="label">Email</span></a></li>
+                <li><a href="https://www.patreon.com/bePatron?u=8671490" data-patreon-widget-type="become-patron-button">Become a Patron!</a></li>
+                <li><script type='text/javascript' src='https://ko-fi.com/widgets/widget_2.js'></script><script type='text/javascript'>kofiwidget2.init('Buy Me a Coffee', '#46b798', 'O5O262BI');kofiwidget2.draw();</script></li>
 			</ul>
 		</footer>
 

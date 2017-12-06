@@ -470,7 +470,7 @@
 	}
 
 	header p {
-		color: rgba(255, 255, 255, 0.5);
+		color: rgba(255, 255, 255, 0.75);
 		position: relative;
 		margin: 0 0 1.5em 0;
 	}
@@ -763,7 +763,7 @@
 		background-color: transparent;
 		border-radius: 6px;
 		border: none;
-		border: solid 2px rgba(255, 255, 255, 0.35);
+		border: solid 2px rgba(255, 255, 255, 0.75);
 		color: inherit;
 		display: block;
 		outline: 0;
@@ -1106,7 +1106,7 @@
 		-ms-transition: opacity 0.5s ease-in-out;
 		transition: opacity 0.5s ease-in-out;
 		bottom: 4em;
-		color: rgba(255, 255, 255, 0.5);
+		color: rgba(255, 255, 255, 0.75);
 		left: 4em;
 		opacity: 0.5;
 		position: absolute;

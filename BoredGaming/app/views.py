@@ -3,6 +3,7 @@ Definition of views.
 """
 
 from django.shortcuts import render
+from django.http.response import HttpResponseRedirect
 from app.forms import MailingListForm
 from app.forms import SignUpForm
 from django.http import HttpRequest
@@ -16,14 +17,23 @@ MAILCHIMP_LIST_ID = ""
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/landingpage.html',
-        {
-            'title':'BoredGaming.io',
-            'year':datetime.now().year,
-        }
-    )
+    if request.method == 'POST':
+        form = MailingListForm(request.POST)
+        if form.is_valid():
+            lead = Lead()
+            lead.email_address = request.POST['email']
+            lead.save()
+            return HttpResponseRedirect('/about/')
+    else:
+        return render(
+            request,
+            'app/landingpage.html',
+            {
+                'title':'BoredGaming.io',
+                'year':datetime.now().year,
+                'form': MailingListForm,
+            }
+        )
 
 def contact(request):
     """Renders the contact page."""
@@ -41,28 +51,15 @@ def contact(request):
 def about(request):
     """Renders the about page."""
     assert isinstance(request, HttpRequest)
-    if(request.method == "POST"):
-        add_email_to_mailing_list(request.POST['email'])
-        return render(
+    return render(
             request,
             'app/about.html',
             {
                 'title':'BoredGaming.io - About',
+                'subtitle': 'BoredGaming.io',
                 'message':'Your favorite group finder.',
-                'year':datetime.now().year,
-                'form': MailingListForm,
-                'success': True,
-            }
-        )
-    else:
-        return render(
-            request,
-            'app/about.html',
-            {
-                'title':'BoredGaming.io - About',
-                'message':'Your favorite group finder.',
-                'year':datetime.now().year,
-                'form': MailingListForm,
+                'message2': ' Here are the features we\'re launching with.',
+                'year':datetime.now().year
             }
         )
 
