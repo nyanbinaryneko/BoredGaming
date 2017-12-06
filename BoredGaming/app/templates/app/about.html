@@ -1,6 +1,15 @@
 {% extends "app/layout.html" %}
 
 {% block content %}
+{% if thank_you %}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="alert alert-dismissable alert-success">
+            <strong>Thank you for signing up!</strong> You will be the first to know when we launch!
+        </div>
+    </div>
+</div>
+{% endif %}
 <div class="row">
     <div class="col-lg-12 col-md-12 col-sm-12">
         <div class="jumbotron">

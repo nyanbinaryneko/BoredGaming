@@ -23,7 +23,7 @@ def home(request):
             lead = Lead()
             lead.email_address = request.POST['email']
             lead.save()
-            return HttpResponseRedirect('/about/')
+            return HttpResponseRedirect(reverse('about'))
         else:
             return render(
                 request,
