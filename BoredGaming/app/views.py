@@ -25,7 +25,15 @@ def home(request):
             lead = Lead()
             lead.email_address = request.POST['email']
             lead.save()
-            return HttpResponseRedirect(reverse('about'))
+            return render(
+                request,
+                'app/about.html',
+                {
+                    'title': 'BoredGaming.io',
+                    'year': datetime.now().year,
+                    'thank_you': True,
+                }
+             )
         else:
             return render(
                 request,
@@ -77,6 +85,7 @@ def about(request):
         )
 
 def signup(request):
+    assert isinstance(request, HttpRequest)
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -95,6 +104,9 @@ def signup(request):
            'title': 'BoredGaming.io - Sign Up',
            'form': form,
        })
+
+def homepage(request):
+    assert isinstance(request, HttpRequest)
 
 #TODO: CHECK TO SEE IF THE EMAIL IS IN THERE MORE THAN ONCE, IF SO, THROW AN ERROR MESSAGE
 #THIS WORKS FOR NOW
