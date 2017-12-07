@@ -5,7 +5,7 @@
         <div class="card d-flex justify-content-center">
             <h3 class="card-header">Sign Up!</h3>
             <div class="card-body">
-                <form method="post">
+                <form method="post" action="/signup/">
                 {% csrf_token %}
                 {% for field in form %}
                     <p>
@@ -16,10 +16,10 @@
                     {% endfor %}
                     </p>
                 {% endfor %}
+                    <div class="sign-up-form-button">
+                        <button type="submit" class="btn btn-success">Sign up!</button>
+                    </div>
                 </form>
-                <div class="sign-up-form-button">
-                    <button type="submit" class="btn btn-success">Sign up!</button>
-                </div>
             </div>
         </div>
     </div>

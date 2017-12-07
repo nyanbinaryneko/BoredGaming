@@ -3,6 +3,8 @@ Definition of views.
 """
 
 from django.shortcuts import render
+from django.urls.base import reverse
+from django.contrib.auth import authenticate, login
 from django.http.response import HttpResponseRedirect
 from app.forms import MailingListForm
 from app.forms import SignUpForm
@@ -83,7 +85,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('home')
+            return HttpResponseRedirect(reverse('home'))
     else:
         form = SignUpForm()
     return render(
