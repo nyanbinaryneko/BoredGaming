@@ -56,3 +56,8 @@ footer {
 .email-form-error {
     color: #e74c3c;
 }
+
+.sign-up-form-button {
+    display: flex;
+    flex-direction: column;
+}

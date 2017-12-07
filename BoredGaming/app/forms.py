@@ -25,42 +25,48 @@ class MailingListForm(forms.Form):
    email = forms.EmailField(required=True)
 
 class SignUpForm(UserCreationForm):
-    first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-    last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
-    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+    email = forms.EmailField(
+        max_length=254,
+        help_text='Required. Inform a valid email address.',
+        widget=forms.EmailInput(
+            attrs = {
+                'class': 'form-control',
+                'name': 'email',
+                }
+            ))
+    username = forms.CharField(
+        max_length=30, 
+        required=False, 
+        help_text='Optional.',
+        widget=forms.TextInput(
+            attrs = {
+                'class': 'form-control',
+                'name': 'username',
+                }
+            )
+        )
+    password1 = forms.CharField( 
+        required=True, 
+        widget=forms.PasswordInput(
+            attrs = {
+                'class': 'form-control',
+                'name': 'password1',
+                }
+            ),
+        label='Password',
+        )
+    password2 = forms.CharField( 
+        required=True,
+        widget=forms.PasswordInput(
+            attrs = {
+                'class': 'form-control',
+                'name': 'password2',
+                }
+            ),
+        label='Confirm Password',
+        )
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
-        widgets = {
-            'username':forms.TextInput(attrs =
-                                       {
-                                           'class':'form-control',
-                                           'placeholder':'Username'
-                                        }), 
-            'first_name':forms.TextInput(attrs =
-                                       {
-                                           'class':'form-control',
-                                           'placeholder':'First Name'
-                                        }),
-            'last_name':forms.TextInput(attrs =
-                                       {
-                                           'class':'form-control',
-                                           'placeholder':'Last Name'
-                                        }),
-            'email':forms.EmailInput(attrs =
-                                       {
-                                           'class':'form-control',
-                                           'placeholder':'Email - required'
-                                        }),
-            'password1':forms.PasswordInput(attrs =
-                                       {
-                                           'class':'form-control',
-                                           'placeholder':'Password'
-                                        }),
-            'password2':forms.PasswordInput(attrs =
-                                       {
-                                           'class':'form-control',
-                                           'placeholder':'Confirm Password'
-                                        })
-            }
+        fields = ('username', 'email', 'password1', 'password2', )
+        
