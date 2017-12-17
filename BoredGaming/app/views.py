@@ -17,7 +17,7 @@ from .models import Lead
 
 MAILCHIMP_LIST_ID = ""
 
-def home(request):
+def landing_page(request):
     """Renders the landing page."""
     assert isinstance(request, HttpRequest)
     if request.method == 'POST':
@@ -104,10 +104,17 @@ def signup(request):
        {
            'title': 'BoredGaming.io - Sign Up',
            'form': form,
+           'year': datetime.now().year
        })
 
 @login_required(login_url='/')
-def homepage(request):
+def home(request):
     assert isinstance(request, HttpRequest)
-    return render(request, 'app/homepage.html')
+    return render(
+        request, 
+        'app/homepage.html',
+        {
+            'title': 'Welcome!',
+            'year': datetime.now().year
+            })
 

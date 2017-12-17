@@ -55,6 +55,7 @@ MIDDLEWARE_CLASSES = [
 ]
 
 ROOT_URLCONF = 'BoredGaming.urls'
+LOGIN_REDIRECT_URL = 'homepage'
 
 TEMPLATES = [
     {
