@@ -3,6 +3,7 @@ Definition of views.
 """
 
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from django.urls.base import reverse
 from django.contrib.auth import authenticate, login
 from django.http.response import HttpResponseRedirect
@@ -17,7 +18,7 @@ from .models import Lead
 MAILCHIMP_LIST_ID = ""
 
 def home(request):
-    """Renders the home page."""
+    """Renders the landing page."""
     assert isinstance(request, HttpRequest)
     if request.method == 'POST':
         form = MailingListForm(request.POST)
@@ -94,7 +95,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse('homepage'))
     else:
         form = SignUpForm()
     return render(
@@ -105,12 +106,8 @@ def signup(request):
            'form': form,
        })
 
+@login_required(login_url='/')
 def homepage(request):
     assert isinstance(request, HttpRequest)
+    return render(request, 'app/homepage.html')
 
-#TODO: CHECK TO SEE IF THE EMAIL IS IN THERE MORE THAN ONCE, IF SO, THROW AN ERROR MESSAGE
-#THIS WORKS FOR NOW
-def add_email_to_mailing_list(email):
-    lead = Lead()
-    lead.email_address = email
-    lead.save()

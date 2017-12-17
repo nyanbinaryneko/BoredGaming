@@ -21,10 +21,7 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarTop">
-                <ul class="navbar-nav mr_auto">
-                    <li class="nav-item {% if request.resolver_match.url_name == 'home' %}active{% endif %}">
-                        <a class="nav-link" href="{% url 'home' %}">Home</a>
-                    </li>
+                <ul class="navbar-nav mr-auto">
                     <li class="nav-item {% if request.resolver_match.url_name == 'about' %}active{% endif %}">
                         <a class="nav-link" href="{% url 'about' %}">About</a>
                     </li>
@@ -32,7 +29,7 @@
                         <a class="nav-link" href='{% url 'contact'%}'>Contact</a>
                     </li>
                 </ul>
-                <!-- {% include 'app/loginpartial.html' %} -->
+                {% include 'app/loginpartial.html' %}
             </div>
         </nav>
     </header>

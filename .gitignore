@@ -414,3 +414,4 @@ paket-files/
 *.sln
 *.pyproj
 desktop.ini
+COLLECT_STATIC/
