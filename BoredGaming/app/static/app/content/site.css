@@ -61,3 +61,18 @@ footer {
     display: flex;
     flex-direction: column;
 }
+
+img {
+    width: 100%;
+    height: auto;
+}
+
+.avatar {
+    padding: .3em 1em 1em;
+}
+
+.card-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}

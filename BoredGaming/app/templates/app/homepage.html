@@ -1,7 +1,82 @@
 {% extends "app/layout.html" %}
 
 {% block content %}
-
-
-
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <h3 class="card-header">Welcome Back, {{ user.username }}</h3>
+            <div class="row">
+                <div class="col-sm-3">
+                    <img class="rounded-circle avatar" src="http://placekitten.com/g/300/300"/>
+                </div>
+                <div class="col-sm-9">
+                    {% if not user.profile.first_name and not user.profile.hometown and not user.profile.bio %}
+                    <div class="row">
+                        <div class="col">
+                            <p>
+                                Hey! This is supposed to be social! Why not fill out your profile?
+                            </p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if user.first_name %}
+                    <div class="row">
+                        <div class="col">
+                            {% if user.profile.rpg_class or user.profile.hometown %}
+                            <h3>{{ user.first_name }},<small class="text-muted"> the {{ user.profile.rpg_class }} hailing from {{ user.profile.hometown }} </small></h3>
+                            {% else %}
+                            <h3>{{ user.first_name }}</h3>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="row">
+                        <div class="col">
+                            {% if user.profile.bio %}
+                            <p>{{ user.profile.bio }}</p>
+                            {% else %}
+                            <p> There doesn't seem to be anything here! Tell us about yourself!</p>
+                            {% endif %}
+                        </div>
+                    </div>                    
+                    <div class="row">
+                        <div class="col">
+                            <a href="#" class="btn btn-primary"><i class="fa fa-edit"></i>&nbsp;Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row space">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="card">
+            <h3 class="card-header">Games You Like</h3>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Magic: The Gathering</li>
+                <li class="list-group-item">Betrayal at House on the Hill</li>
+                <li class="list-group-item">Mysterium</li>
+                <li class="list-group-item">Dungeons and Dragons 3.5</li>
+            </ul>
+            <div class="card-buttons">
+                <a href="#" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;Add a Game</a>
+                <a href="#" class="btn btn-danger"><i class="fa fa-minus"></i>&nbsp;Remove a Game</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="card">
+            <h3 class="card-header">Games You Own</h3>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Betrayal at House on the Hill</li>
+                <li class="list-group-item">Mysterium</li>
+            </ul>
+            <div class="card-buttons">
+                <a href="#" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;Add a Game</a>
+                <a href="#" class="btn btn-danger"><i class="fa fa-minus"></i>&nbsp;Remove a Game</a>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

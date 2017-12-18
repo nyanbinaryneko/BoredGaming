@@ -116,5 +116,5 @@ def home(request):
         {
             'title': 'Welcome!',
             'year': datetime.now().year
-            })
+        })
 
