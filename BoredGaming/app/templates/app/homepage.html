@@ -54,10 +54,9 @@
         <div class="card">
             <h3 class="card-header">Games You Like</h3>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Magic: The Gathering</li>
-                <li class="list-group-item">Betrayal at House on the Hill</li>
-                <li class="list-group-item">Mysterium</li>
-                <li class="list-group-item">Dungeons and Dragons 3.5</li>
+                {% for game in user.profile.games_liked.all %}
+                <li class="list-group-item">{{ game.name }}</li>
+                {% endfor %}
             </ul>
             <div class="card-buttons">
                 <a href="#" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;Add a Game</a>
@@ -69,8 +68,9 @@
         <div class="card">
             <h3 class="card-header">Games You Own</h3>
             <ul class="list-group list-group-flush">
-                <li class="list-group-item">Betrayal at House on the Hill</li>
-                <li class="list-group-item">Mysterium</li>
+                {% for game in user.profile.games_owned.all %}
+                <li class="list-group-item">{{ game.name }}</li>
+                {% endfor %}
             </ul>
             <div class="card-buttons">
                 <a href="#" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;Add a Game</a>
