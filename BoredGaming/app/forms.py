@@ -3,6 +3,7 @@ Definition of forms.
 """
 
 from django import forms
+from app.models import Profile
 from django.forms.fields import EmailField
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm
@@ -25,9 +26,10 @@ class MailingListForm(forms.Form):
    email = forms.EmailField(required=True)
 
 class SignUpForm(UserCreationForm):
+    """Sign up form"""
     email = forms.EmailField(
         max_length=254,
-        help_text='Required. Inform a valid email address.',
+        help_text='Required. Please submit a valid email address.',
         widget=forms.EmailInput(
             attrs = {
                 'class': 'form-control',
@@ -36,8 +38,7 @@ class SignUpForm(UserCreationForm):
             ))
     username = forms.CharField(
         max_length=30, 
-        required=False, 
-        help_text='Optional.',
+        required=True, 
         widget=forms.TextInput(
             attrs = {
                 'class': 'form-control',
@@ -68,5 +69,68 @@ class SignUpForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ('username', 'email', 'password1', 'password2', )
+        fields = ('username', 'email', 'password1', 'password2' )
+
+class UserForm(forms.ModelForm):
+    email = forms.EmailField(
+        max_length=254,
+        help_text='Required. Inform a valid email address.',
+        widget=forms.EmailInput(
+            attrs = {
+                'class': 'form-control',
+                'name': 'email',
+                }
+            ))
+    first_name = forms.CharField(
+        required = False,
+        widget=forms.TextInput(
+            attrs = {
+                'class': 'form-control',
+                'name': 'first_name'
+                }
+            ))
+    last_name = forms.CharField(
+        required = False,
+        widget=forms.TextInput(
+            attrs = {
+                'class': 'form-control',
+                'name': 'last_name'
+                }
+            ))
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name', 'email')
+
+class ProfileForm(forms.ModelForm):
+    bio = forms.CharField(
+        max_length=10000,
+        required = False,
+        widget=forms.Textarea(
+            attrs = {
+                'class': 'form-control',
+                'name': 'first_name'
+                }
+            ))
+    hometown = forms.CharField(
+        max_length=100,
+        required = False,
+        widget=forms.TextInput(
+            attrs = {
+                'class': 'form-control',
+                'name': 'last_name'
+                }
+            ))
+    rpg_class = forms.CharField(
+        max_length=100,
+        required = False,
+        widget=forms.TextInput(
+            attrs = {
+                'class': 'form-control',
+                'name': 'last_name'
+                }
+            ))
+    class Meta:
+        model = Profile
+        fields = ('bio', 'hometown', 'rpg_class')
+
         

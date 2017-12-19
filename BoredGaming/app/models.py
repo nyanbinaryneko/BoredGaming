@@ -24,7 +24,7 @@ class Game(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    bio = models.TextField(max_length=500, blank=True)
+    bio = models.TextField(max_length=10000, blank=True)
     hometown = models.CharField(max_length=100, blank=True)
     rpg_class = models.CharField(max_length=100, blank=True)
     games_liked = models.ManyToManyField(Game, related_name='liked')
