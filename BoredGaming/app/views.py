@@ -2,7 +2,7 @@
 Definition of views.
 """
 
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from app.models import Game
 from app.forms import AddLikedGameForm
 from app.forms import AddNewGameForm
@@ -121,15 +121,19 @@ def home(request):
         add_new_game_form = AddNewGameForm()
         add_game_liked_form = AddLikedGameForm()
         user = request.user
-        if request.POST['liked'] and request.POST['name'] is '':
+        error_message = ''
+        if request.POST['liked']:
             if request.POST['game']:
-               user.profile.games_liked.add(request.POST['game'])
-               user.save()
-        elif request.POST['liked'] and request.POST['name']:
-            game = Game()
-            game.name = request.POST['name']
-            game.save()
-            user.profile.games_liked.add(game)
+                game = get_object_or_404(Game, id = request.POST['game'])
+                if game in user.profile.games_liked.all():
+                    error_message = 'You already like ' + game.name
+                else:
+                    user.profile.games_liked.add(game)
+                    user.save()
+            elif request.POST['name']:
+                game = Game.objects.get_or_create(name = request.POST['name']) #get_or_create returns a tuple...TIL
+                print(game)
+                user.profile.games_liked.add(game[0])
         return render(
             request,
             'app/homepage.html',
@@ -138,7 +142,8 @@ def home(request):
                 'year': datetime.now().year,
                 'new_game_form':  add_new_game_form,
                 'add_game_liked_form': add_game_liked_form,
-                'updated': True
+                'updated': True,
+                'error_message': error_message
             })
     else:
         add_new_game_form = AddNewGameForm()
