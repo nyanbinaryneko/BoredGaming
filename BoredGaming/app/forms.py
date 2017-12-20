@@ -171,6 +171,27 @@ class AddLikedGameForm(forms.ModelForm):
         model = Profile
         fields = ()
 
+class RemoveLikedGameForm(forms.ModelForm):
+    games_liked = forms.ModelChoiceField(
+        queryset = Game.objects.all(),
+        empty_label = "Please select a game",
+        required = False,
+        widget = forms.Select(
+            attrs = {
+                'class': 'form-control',
+                'name': 'games_liked'
+                }
+            ))
+
+    class Meta:
+        model = Profile
+        fields = ('games_liked',)
+
+    def __init__(self, user, **kwargs):
+        super(RemoveLikedGameForm, self).__init__(**kwargs)
+        if user:
+            self.fields['games_liked'].queryset = user.profile.games_liked.all()
+
 class AddOwnedGameForm(forms.ModelForm):
     game = forms.ModelChoiceField(
         queryset = Game.objects.all(),
@@ -182,6 +203,7 @@ class AddOwnedGameForm(forms.ModelForm):
                 'name': 'existing_game_owned'
                 }
             ))
+
     class Meta:
         model = Profile
         fields = ()

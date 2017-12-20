@@ -3,6 +3,7 @@ Definition of views.
 """
 
 from django.shortcuts import render, get_object_or_404
+from app.forms import RemoveLikedGameForm
 from app.forms import AddOwnedGameForm
 from app.models import Game
 from app.forms import AddLikedGameForm
@@ -121,6 +122,8 @@ def home(request):
     add_new_game_form = AddNewGameForm()
     add_game_liked_form = AddLikedGameForm()
     add_game_owned_form = AddOwnedGameForm()
+    remove_game_liked_form = RemoveLikedGameForm(request.user)
+
     if request.method == 'POST':
         user = request.user
         error_message = ''
@@ -170,7 +173,8 @@ def home(request):
                 'year': datetime.now().year,
                 'new_game_form':  add_new_game_form,
                 'add_game_liked_form': add_game_liked_form,
-                'add_game_owned_form': add_game_owned_form
+                'add_game_owned_form': add_game_owned_form,
+                'remove_game_liked_form': remove_game_liked_form
             })
 
 @login_required(login_url='/')

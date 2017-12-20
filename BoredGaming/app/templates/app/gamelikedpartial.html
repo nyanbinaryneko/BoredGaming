@@ -8,3 +8,12 @@
         <button class="btn btn-primary">Add a new Fave!</button>
     </form>
 </div>
+<div id="remove_game_liked">
+    <form action="{% url 'home' %}" method="post">
+        {% csrf_token %}
+        <input type="hidden" value="true" name="add_owned">
+        <input type="hidden" value="" name="add_liked">
+        {{ remove_game_liked_form.as_p }}
+        <button class="btn btn-primary">Remove Game</button>
+    </form>
+</div>
