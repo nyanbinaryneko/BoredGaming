@@ -76,3 +76,7 @@ img {
     flex-direction: row;
     justify-content: space-evenly;
 }
+
+#add_game_liked {
+    display: none;
+}

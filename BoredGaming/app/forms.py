@@ -3,6 +3,8 @@ Definition of forms.
 """
 
 from django import forms
+from django.forms.models import ModelChoiceField
+from app.models import Game
 from app.models import Profile
 from django.forms.fields import EmailField
 from django.contrib.auth.forms import AuthenticationForm
@@ -28,9 +30,9 @@ class MailingListForm(forms.Form):
 class SignUpForm(UserCreationForm):
     """Sign up form"""
     email = forms.EmailField(
-        max_length=254,
-        help_text='Required. Please submit a valid email address.',
-        widget=forms.EmailInput(
+        max_length = 254,
+        help_text ='Required. Please submit a valid email address.',
+        widget = forms.EmailInput(
             attrs = {
                 'class': 'form-control',
                 'name': 'email',
@@ -39,7 +41,7 @@ class SignUpForm(UserCreationForm):
     username = forms.CharField(
         max_length=30, 
         required=True, 
-        widget=forms.TextInput(
+        widget = forms.TextInput(
             attrs = {
                 'class': 'form-control',
                 'name': 'username',
@@ -48,7 +50,7 @@ class SignUpForm(UserCreationForm):
         )
     password1 = forms.CharField( 
         required=True, 
-        widget=forms.PasswordInput(
+        widget = forms.PasswordInput(
             attrs = {
                 'class': 'form-control',
                 'name': 'password1',
@@ -58,7 +60,7 @@ class SignUpForm(UserCreationForm):
         )
     password2 = forms.CharField( 
         required=True,
-        widget=forms.PasswordInput(
+        widget = forms.PasswordInput(
             attrs = {
                 'class': 'form-control',
                 'name': 'password2',
@@ -73,10 +75,10 @@ class SignUpForm(UserCreationForm):
 
 class UserForm(forms.ModelForm):
     email = forms.EmailField(
-        max_length=254,
+        max_length = 254,
         help_text='Required. Please submit valid email address.',
-        required=True,
-        widget=forms.EmailInput(
+        required = True,
+        widget = forms.EmailInput(
             attrs = {
                 'class': 'form-control',
                 'name': 'email',
@@ -84,7 +86,7 @@ class UserForm(forms.ModelForm):
             ))
     first_name = forms.CharField(
         required = False,
-        widget=forms.TextInput(
+        widget = forms.TextInput(
             attrs = {
                 'class': 'form-control',
                 'name': 'first_name'
@@ -92,46 +94,79 @@ class UserForm(forms.ModelForm):
             ))
     last_name = forms.CharField(
         required = False,
-        widget=forms.TextInput(
+        widget = forms.TextInput(
             attrs = {
                 'class': 'form-control',
                 'name': 'last_name'
                 }
             ))
+
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'email')
 
 class ProfileForm(forms.ModelForm):
+    """Updates a Profile"""
     bio = forms.CharField(
-        max_length=10000,
+        max_length = 10000,
         required = False,
-        widget=forms.Textarea(
+        widget = forms.Textarea(
             attrs = {
                 'class': 'form-control',
                 'name': 'first_name'
                 }
             ))
     hometown = forms.CharField(
-        max_length=100,
+        max_length = 100,
         required = False,
-        widget=forms.TextInput(
+        widget = forms.TextInput(
             attrs = {
                 'class': 'form-control',
                 'name': 'last_name'
                 }
             ))
     rpg_class = forms.CharField(
-        max_length=100,
+        max_length = 100,
         required = False,
-        widget=forms.TextInput(
+        widget = forms.TextInput(
             attrs = {
                 'class': 'form-control',
                 'name': 'last_name'
                 }
             ))
+
     class Meta:
         model = Profile
         fields = ('bio', 'hometown', 'rpg_class')
 
-        
+class AddNewGameForm(forms.ModelForm):
+    """Adds a new Game"""
+    name = forms.CharField(
+        max_length = 100,
+        required = False,
+        widget = forms.TextInput(
+            attrs = {
+                'class': 'form-control',
+                'name': 'game'
+                }
+            ))
+
+    class Meta:
+        model = Game
+        fields = ('name',)
+
+class AddLikedGameForm(forms.ModelForm):
+    game = forms.ModelChoiceField(
+        queryset = Game.objects.all(),
+        empty_label = "Please select a game",
+        required = False,
+        widget = forms.Select(
+            attrs = {
+                'class': 'form-control',
+                'name': 'existing_game_liked'
+                }
+            ))
+
+    class Meta:
+        model = Profile
+        fields = ()

@@ -3,6 +3,9 @@ Definition of views.
 """
 
 from django.shortcuts import render
+from app.models import Game
+from app.forms import AddLikedGameForm
+from app.forms import AddNewGameForm
 from app.forms import ProfileForm
 from app.forms import UserForm
 from django.db.transaction import atomic
@@ -112,15 +115,43 @@ def signup(request):
        })
 
 @login_required(login_url='/')
-def home(request):
+def home(request):  
     assert isinstance(request, HttpRequest)
-    return render(
-        request, 
-        'app/homepage.html',
-        {
-            'title': 'Welcome!',
-            'year': datetime.now().year
-        })
+    if request.method == 'POST':
+        add_new_game_form = AddNewGameForm()
+        add_game_liked_form = AddLikedGameForm()
+        user = request.user
+        if request.POST['liked'] and request.POST['name'] is '':
+            if request.POST['game']:
+               user.profile.games_liked.add(request.POST['game'])
+               user.save()
+        elif request.POST['liked'] and request.POST['name']:
+            game = Game()
+            game.name = request.POST['name']
+            game.save()
+            user.profile.games_liked.add(game)
+        return render(
+            request,
+            'app/homepage.html',
+            {
+                'title': 'Welcome!',
+                'year': datetime.now().year,
+                'new_game_form':  add_new_game_form,
+                'add_game_liked_form': add_game_liked_form,
+                'updated': True
+            })
+    else:
+        add_new_game_form = AddNewGameForm()
+        add_game_liked_form = AddLikedGameForm()
+        return render(
+            request, 
+            'app/homepage.html',
+            {
+                'title': 'Welcome!',
+                'year': datetime.now().year,
+                'new_game_form':  add_new_game_form,
+                'add_game_liked_form': add_game_liked_form
+            })
 
 @login_required(login_url='/')
 @transaction.atomic
@@ -143,10 +174,10 @@ def update_profile(request):
                 'title': 'Edit Profile',
                 'year': datetime.now().year,
                 'error': 'Please fix the error below.'
-                })
+             })
     else:
         user_form = UserForm(instance=request.user)
-        profile_form = ProfileForm(instance= request.user.profile)
+        profile_form = ProfileForm(instance = request.user.profile)
         return render(
             request, 
             'app/editprofile.html',
@@ -155,6 +186,6 @@ def update_profile(request):
                 'profile_form': profile_form,
                 'title': 'Edit Profile',
                 'year': datetime.now().year
-                })
+            })
 
 
