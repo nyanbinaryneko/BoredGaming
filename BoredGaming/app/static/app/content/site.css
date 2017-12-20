@@ -80,3 +80,7 @@ img {
 #add_game_liked {
     display: none;
 }
+
+#add_game_owned {
+    display: none;
+}

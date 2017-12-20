@@ -3,6 +3,7 @@ Definition of views.
 """
 
 from django.shortcuts import render, get_object_or_404
+from app.forms import AddOwnedGameForm
 from app.models import Game
 from app.forms import AddLikedGameForm
 from app.forms import AddNewGameForm
@@ -117,13 +118,15 @@ def signup(request):
 @login_required(login_url='/')
 def home(request):  
     assert isinstance(request, HttpRequest)
+    add_new_game_form = AddNewGameForm()
+    add_game_liked_form = AddLikedGameForm()
+    add_game_owned_form = AddOwnedGameForm()
     if request.method == 'POST':
-        add_new_game_form = AddNewGameForm()
-        add_game_liked_form = AddLikedGameForm()
         user = request.user
         error_message = ''
-        if request.POST['liked']:
+        if request.POST['add_liked']:
             if request.POST['game']:
+                print('test')
                 game = get_object_or_404(Game, id = request.POST['game'])
                 if game in user.profile.games_liked.all():
                     error_message = 'You already like ' + game.name
@@ -131,9 +134,21 @@ def home(request):
                     user.profile.games_liked.add(game)
                     user.save()
             elif request.POST['name']:
-                game = Game.objects.get_or_create(name = request.POST['name']) #get_or_create returns a tuple...TIL
+                game_tuple = Game.objects.get_or_create(name = request.POST['name']) #get_or_create returns a tuple...TIL
                 print(game)
-                user.profile.games_liked.add(game[0])
+                user.profile.games_liked.add(game_tuple[0])
+        if request.POST['add_owned']:
+            if request.POST['game']:
+                game = get_object_or_404(Game, id = request.POST['game'])
+                if game in user.profile.games_owned.all():
+                    error_message = 'You already own ' + game.name
+                else:
+                    user.profile.games_owned.add(game)
+                    user.save()
+            elif request.POST['name']:
+                game_tuple = Game.objects.get_or_create(name = request.POST['name']) #get_or_create returns a tuple...TIL
+                print(game)
+                user.profile.games_owned.add(game_tuple[0])
         return render(
             request,
             'app/homepage.html',
@@ -142,12 +157,11 @@ def home(request):
                 'year': datetime.now().year,
                 'new_game_form':  add_new_game_form,
                 'add_game_liked_form': add_game_liked_form,
+                'add_game_owned_form': add_game_owned_form,
                 'updated': True,
                 'error_message': error_message
             })
     else:
-        add_new_game_form = AddNewGameForm()
-        add_game_liked_form = AddLikedGameForm()
         return render(
             request, 
             'app/homepage.html',
@@ -155,7 +169,8 @@ def home(request):
                 'title': 'Welcome!',
                 'year': datetime.now().year,
                 'new_game_form':  add_new_game_form,
-                'add_game_liked_form': add_game_liked_form
+                'add_game_liked_form': add_game_liked_form,
+                'add_game_owned_form': add_game_owned_form
             })
 
 @login_required(login_url='/')

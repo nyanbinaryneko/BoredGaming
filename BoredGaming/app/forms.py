@@ -170,3 +170,18 @@ class AddLikedGameForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ()
+
+class AddOwnedGameForm(forms.ModelForm):
+    game = forms.ModelChoiceField(
+        queryset = Game.objects.all(),
+        empty_label = "Please select a game",
+        required = False,
+        widget = forms.Select(
+            attrs = {
+                'class': 'form-control',
+                'name': 'existing_game_owned'
+                }
+            ))
+    class Meta:
+        model = Profile
+        fields = ()

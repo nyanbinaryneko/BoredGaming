@@ -74,9 +74,10 @@
                 {% endfor %}
             </ul>
             <div class="card-buttons">
-                <a href="#" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;Add a Game</a>
+                <a href="#" onclick="toggleAddOwnedGame();" class="btn btn-success"><i class="fa fa-plus"></i>&nbsp;Add a Game</a>
                 <a href="#" class="btn btn-danger"><i class="fa fa-minus"></i>&nbsp;Remove a Game</a>
             </div>
+            {% include 'app/gameownedpartial.html' %}
         </div>
     </div>
 </div>
