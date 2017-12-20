@@ -3,6 +3,10 @@ Definition of views.
 """
 
 from django.shortcuts import render
+from app.forms import ProfileForm
+from app.forms import UserForm
+from django.db.transaction import atomic
+from django.db import transaction
 from django.contrib.auth.decorators import login_required
 from django.urls.base import reverse
 from django.contrib.auth import authenticate, login
@@ -95,7 +99,7 @@ def signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return HttpResponseRedirect(reverse('homepage'))
+            return HttpResponseRedirect(reverse('home'))
     else:
         form = SignUpForm()
     return render(
@@ -117,4 +121,40 @@ def home(request):
             'title': 'Welcome!',
             'year': datetime.now().year
         })
+
+@login_required(login_url='/')
+@transaction.atomic
+def update_profile(request):
+    assert isinstance(request, HttpRequest)
+    if request.method == 'POST':
+        user_form = UserForm(request.POST, instance=request.user)
+        profile_form = ProfileForm(request.POST, instance=request.user.profile)
+        if user_form.is_valid() and profile_form.is_valid():
+            user_form.save()
+            profile_form.save()
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            return render(
+            request, 
+            'app/editprofile.html',
+            {
+                'user_form': user_form,
+                'profile_form': profile_form,
+                'title': 'Edit Profile',
+                'year': datetime.now().year,
+                'error': 'Please fix the error below.'
+                })
+    else:
+        user_form = UserForm(instance=request.user)
+        profile_form = ProfileForm(instance= request.user.profile)
+        return render(
+            request, 
+            'app/editprofile.html',
+            {
+                'user_form': user_form,
+                'profile_form': profile_form,
+                'title': 'Edit Profile',
+                'year': datetime.now().year
+                })
+
 

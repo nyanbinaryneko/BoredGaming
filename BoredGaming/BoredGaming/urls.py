@@ -41,6 +41,7 @@ urlpatterns = [
     url(r'^signup/$', app.views.signup, name='signup'),
     #url(r'^homepage/$', app.views.homepage, name='homepage'),
     url(r'^profiles/home', app.views.home, name='home' ),
+    url(r'profiles/editprofile', app.views.update_profile, name='update_profile'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
