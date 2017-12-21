@@ -77,10 +77,6 @@ img {
     justify-content: space-evenly;
 }
 
-#add_game_liked {
-    display: none;
-}
-
-#add_game_owned {
+.game-form {
     display: none;
 }
