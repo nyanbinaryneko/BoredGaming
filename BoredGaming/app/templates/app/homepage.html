@@ -7,7 +7,7 @@
             <h3 class="card-header">Welcome Back, {{ user.username }}</h3>
             <div class="row">
                 <div class="col-sm-3">
-                    <img class="rounded-circle avatar" src="http://placekitten.com/g/300/300"/>
+                    <img class="rounded-circle avatar" src="{{ user.profile.avatar.url }}"/>
                 </div>
                 <div class="col-sm-9">
                     {% if not user.profile.first_name and not user.profile.hometown and not user.profile.bio %}

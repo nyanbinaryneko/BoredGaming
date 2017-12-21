@@ -3,6 +3,7 @@ Definition of models.
 """
 
 from django.db import models
+from django.db.models.fields.files import ImageField
 from django.db.models.fields.related import ManyToManyField
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
@@ -29,6 +30,7 @@ class Profile(models.Model):
     rpg_class = models.CharField(max_length=100, blank=True)
     games_liked = models.ManyToManyField(Game, related_name='liked')
     games_owned = models.ManyToManyField(Game, related_name='owned')
+    avatar = models.ImageField(upload_to = "avatars", blank=True)
 
     def __str__(self):
         return self.user.username

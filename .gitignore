@@ -415,3 +415,4 @@ paket-files/
 *.pyproj
 desktop.ini
 COLLECT_STATIC/
+secret.txt
