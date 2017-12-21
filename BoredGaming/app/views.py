@@ -3,6 +3,7 @@ Definition of views.
 """
 
 from django.shortcuts import render, get_object_or_404
+from app.forms import RemoveOwnedGameForm
 from app.forms import RemoveLikedGameForm
 from app.forms import AddOwnedGameForm
 from app.models import Game
@@ -123,7 +124,7 @@ def home(request):
     add_game_liked_form = AddLikedGameForm()
     add_game_owned_form = AddOwnedGameForm()
     remove_game_liked_form = RemoveLikedGameForm(request.user)
-
+    remove_gamed_owned_form = RemoveOwnedGameForm(request.user)
     if request.method == 'POST':
         user = request.user
         error_message = ''
@@ -156,6 +157,10 @@ def home(request):
             game = get_object_or_404(Game, id = request.POST['games_liked'])
             user.profile.games_liked.remove(game)
             user.save()
+        if request.POST['remove_owned']:
+            game = get_object_or_404(Game, id = request.POST['games_owned'])
+            user.profile.games_owned.remove(game)
+            user.save()
         return render(
             request,
             'app/homepage.html',
@@ -166,6 +171,7 @@ def home(request):
                 'add_game_liked_form': add_game_liked_form,
                 'add_game_owned_form': add_game_owned_form,
                 'remove_game_liked_form': remove_game_liked_form,
+                'remove_game_owned_form': remove_gamed_owned_form,
                 'updated': True,
                 'error_message': error_message
             })
@@ -179,7 +185,8 @@ def home(request):
                 'new_game_form':  add_new_game_form,
                 'add_game_liked_form': add_game_liked_form,
                 'add_game_owned_form': add_game_owned_form,
-                'remove_game_liked_form': remove_game_liked_form
+                'remove_game_liked_form': remove_game_liked_form,
+                'remove_game_owned_form': remove_gamed_owned_form
             })
 
 @login_required(login_url='/')

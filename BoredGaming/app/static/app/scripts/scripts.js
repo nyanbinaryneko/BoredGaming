@@ -11,3 +11,7 @@ function toggleAddOwnedGame()
 {
     $('#add_game_owned').toggle();
 }
+
+function toggleRemoveOwnedGame() {
+    $('#remove_game_owned').toggle();
+};

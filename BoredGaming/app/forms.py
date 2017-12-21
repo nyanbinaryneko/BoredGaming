@@ -207,3 +207,24 @@ class AddOwnedGameForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ()
+
+class RemoveOwnedGameForm(forms.ModelForm):
+    games_owned = forms.ModelChoiceField(
+        queryset = Game.objects.all(),
+        empty_label = "Please select a game",
+        required = False,
+        widget = forms.Select(
+            attrs = {
+                'class': 'form-control',
+                'name': 'games_owned'
+                }
+            ))
+
+    class Meta:
+        model = Profile
+        fields = ('games_owned',)
+
+    def __init__(self, user, **kwargs):
+        super(RemoveOwnedGameForm, self).__init__(**kwargs)
+        if user:
+            self.fields['games_owned'].queryset = user.profile.games_owned.all()
