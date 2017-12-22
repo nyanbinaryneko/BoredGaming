@@ -193,7 +193,13 @@ def home(request):
 @transaction.atomic
 def update_profile(request):
     assert isinstance(request, HttpRequest)
-    if request.method == 'POST':
+    if request.method == 'POST' and request.FILES['avatar']:
+        avatar = request.FILES['avatar']
+        user = request.user
+        user.profile.avatar = avatar
+        user.save()
+        return HttpResponseRedirect(reverse('update_profile'))
+    elif request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
         if user_form.is_valid() and profile_form.is_valid():
@@ -212,7 +218,7 @@ def update_profile(request):
                 'error': 'Please fix the error below.'
              })
     else:
-        user_form = UserForm(instance=request.user)
+        user_form = UserForm(instance = request.user)
         profile_form = ProfileForm(instance = request.user.profile)
         return render(
             request, 
