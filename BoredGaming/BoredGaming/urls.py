@@ -45,6 +45,9 @@ urlpatterns = [
     #url(r'^homepage/$', app.views.homepage, name='homepage'),
     url(r'^profiles/home', app.views.home, name='home' ),
     url(r'profiles/editprofile', app.views.update_profile, name='update_profile'),
+    #TODO: profiles/username for linking a profile
+    #For now, profiles/<user_id>
+    url(r'profiles/(?P<user_id>[0-9]+)', app.views.user_profile, name='profile'),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

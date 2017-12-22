@@ -3,6 +3,7 @@ Definition of views.
 """
 
 from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.models import User
 from app.forms import RemoveOwnedGameForm
 from app.forms import RemoveLikedGameForm
 from app.forms import AddOwnedGameForm
@@ -229,5 +230,13 @@ def update_profile(request):
                 'title': 'Edit Profile',
                 'year': datetime.now().year
             })
+
+@login_required(login_url='/')
+def user_profile(request, user_id):
+    user = get_object_or_404(User, id=user_id)
+    return render(
+        request,
+        'app/userprofile.html'
+        )
 
 
