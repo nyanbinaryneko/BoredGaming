@@ -234,9 +234,13 @@ def update_profile(request):
 @login_required(login_url='/')
 def user_profile(request, user_id):
     user = get_object_or_404(User, id=user_id)
+    username = user.username
     return render(
         request,
-        'app/userprofile.html'
-        )
+        'app/userprofile.html',
+        {
+            'title': 'BoredGaming - ' + username,
+            'year': datetime.now().year
+        })
 
 

@@ -1,4 +1,69 @@
 {% extends "app/layout.html" %}
 
 {% block content %}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <h3 class="card-header">{{ user.username }}</h3>
+            <div class="row">
+                <div class="col-sm-3">
+                    <img class="rounded-circle avatar" src="{{ user.profile.avatar.url }}"/>
+                </div>
+                <div class="col-sm-9">
+                    {% if not user.profile.first_name and not user.profile.hometown and not user.profile.bio %}
+                    <div class="row">
+                        <div class="col">
+                            <p>
+                                Hmmm. Nothing here yet..
+                            </p>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% if user.first_name %}
+                    <div class="row">
+                        <div class="col">
+                            {% if user.profile.rpg_class or user.profile.hometown %}
+                            <h3>{{ user.first_name }},<small class="text-muted"> the {{ user.profile.rpg_class }} hailing from {{ user.profile.hometown }} </small></h3>
+                            {% else %}
+                            <h3>{{ user.first_name }}</h3>
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% endif %}
+                    <div class="row">
+                        <div class="col">
+                            {% if user.profile.bio %}
+                            <p>{{ user.profile.bio }}</p>
+                            {% else %}
+                            <p> There doesn't seem to be anything here!</p>
+                            {% endif %}
+                        </div>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row space">
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="card">
+            <h3 class="card-header">Games {{ user.username }} Likes</h3>
+            <ul class="list-group list-group-flush">
+                {% for game in user.profile.games_liked.all %}
+                <li class="list-group-item">{{ game.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="card">
+            <h3 class="card-header">Games {{ user.username }} Owns</h3>
+            <ul class="list-group list-group-flush">
+                {% for game in user.profile.games_owned.all %}
+                <li class="list-group-item">{{ game.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
 {% endblock %}
