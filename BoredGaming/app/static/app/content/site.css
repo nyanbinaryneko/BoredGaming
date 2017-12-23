@@ -80,3 +80,15 @@ img {
 .game-form {
     display: none;
 }
+
+.flex-header {
+    display: flex;
+}
+
+.header-span {
+    flex: 4;
+}
+
+.input-span {
+    flex: 3;
+}
