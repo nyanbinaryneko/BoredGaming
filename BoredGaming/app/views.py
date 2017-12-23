@@ -243,4 +243,16 @@ def user_profile(request, user_id):
             'year': datetime.now().year
         })
 
+@login_required(login_url='/')
+def user_index(request):
+    users = User.objects.all() 
+    return render(
+        request,
+        'app/userindex.html',
+        {
+            'title': 'BoredGaming - Users',
+            'year': datetime.now().year,
+            'users': users
+        })
+
 
