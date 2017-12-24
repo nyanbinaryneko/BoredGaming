@@ -136,12 +136,9 @@ def home(request):
                     error_message = 'You already like ' + game.name
                 else:
                     user.profile.games_liked.add(game)
-                    user.save()
             elif request.POST['name']:
                 game_tuple = Game.objects.get_or_create(name = request.POST['name']) #get_or_create returns a tuple...TIL
-                print(game)
                 user.profile.games_liked.add(game_tuple[0])
-                user.save()
         if request.POST['add_owned']:
             if request.POST['game']:
                 game = get_object_or_404(Game, id = request.POST['game'])
@@ -149,11 +146,9 @@ def home(request):
                     error_message = 'You already own ' + game.name
                 else:
                     user.profile.games_owned.add(game)
-                    user.save()
             elif request.POST['name']:
                 game_tuple = Game.objects.get_or_create(name = request.POST['name']) #get_or_create returns a tuple...TIL
                 user.profile.games_owned.add(game_tuple[0])
-                user.save()
         if request.POST['remove_liked']:
             game = get_object_or_404(Game, id = request.POST['games_liked'])
             user.profile.games_liked.remove(game)
@@ -161,7 +156,7 @@ def home(request):
         if request.POST['remove_owned']:
             game = get_object_or_404(Game, id = request.POST['games_owned'])
             user.profile.games_owned.remove(game)
-            user.save()
+        user.save()
         return render(
             request,
             'app/homepage.html',

@@ -28,9 +28,10 @@ class Profile(models.Model):
     bio = models.TextField(max_length=10000, blank=True)
     hometown = models.CharField(max_length=100, blank=True)
     rpg_class = models.CharField(max_length=100, blank=True)
-    games_liked = models.ManyToManyField(Game, related_name='liked')
-    games_owned = models.ManyToManyField(Game, related_name='owned')
+    games_liked = models.ManyToManyField(Game, related_name = 'liked')
+    games_owned = models.ManyToManyField(Game, related_name = 'owned')
     avatar = models.ImageField(upload_to = "avatars", blank=True)
+    friends = models.ManyToManyField(User, related_name = "friend")
 
     def __str__(self):
         return self.user.username
