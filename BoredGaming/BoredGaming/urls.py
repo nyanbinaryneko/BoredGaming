@@ -49,7 +49,7 @@ urlpatterns = [
     # TODO: profiles/username for linking a profile
     # For now, profiles/<user_id>
     url(r'profiles/(?P<user_id>[0-9]+)$', app.views.user_profile, name='profile'),
-    url(r'/messages/', include('pinax.messages.urls', namespace='pinax_messages')),
+    url(r'messages/', include('pinax.messages.urls', namespace='pinax_messages')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

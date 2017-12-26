@@ -110,7 +110,7 @@ def signup(request):
     else:
         form = SignUpForm()
     return render(
-        request, 
+        request,
         'app/signup.html',
        {
            'title': 'BoredGaming.io - Sign Up',
@@ -119,7 +119,7 @@ def signup(request):
        })
 
 @login_required(login_url='/')
-def home(request):  
+def home(request):
     assert isinstance(request, HttpRequest)
     add_new_game_form = AddNewGameForm()
     add_game_liked_form = AddLikedGameForm()
@@ -173,7 +173,7 @@ def home(request):
             })
     else:
         return render(
-            request, 
+            request,
             'app/homepage.html',
             {
                 'title': 'Welcome!',
@@ -189,13 +189,7 @@ def home(request):
 @transaction.atomic
 def update_profile(request):
     assert isinstance(request, HttpRequest)
-    if request.method == 'POST' and request.FILES['avatar']:
-        avatar = request.FILES['avatar']
-        user = request.user
-        user.profile.avatar = avatar
-        user.save()
-        return HttpResponseRedirect(reverse('update_profile'))
-    elif request.method == 'POST':
+    if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
         if user_form.is_valid() and profile_form.is_valid():
@@ -204,7 +198,7 @@ def update_profile(request):
             return HttpResponseRedirect(reverse('home'))
         else:
             return render(
-            request, 
+            request,
             'app/editprofile.html',
             {
                 'user_form': user_form,
@@ -213,11 +207,17 @@ def update_profile(request):
                 'year': datetime.now().year,
                 'error': 'Please fix the error below.'
              })
+    elif request.method == 'POST' and request.FILES['avatar']:
+        avatar = request.FILES['avatar']
+        user = request.user
+        user.profile.avatar = avatar
+        user.save()
+        return HttpResponseRedirect(reverse('update_profile'))
     else:
         user_form = UserForm(instance = request.user)
         profile_form = ProfileForm(instance = request.user.profile)
         return render(
-            request, 
+            request,
             'app/editprofile.html',
             {
                 'user_form': user_form,
@@ -240,7 +240,7 @@ def user_profile(request, user_id):
 
 @login_required(login_url='/')
 def user_index(request):
-    users = User.objects.all() 
+    users = User.objects.all()
     return render(
         request,
         'app/userindex.html',
@@ -249,5 +249,3 @@ def user_index(request):
             'year': datetime.now().year,
             'users': users
         })
-
-
