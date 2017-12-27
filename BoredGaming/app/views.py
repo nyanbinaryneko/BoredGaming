@@ -24,9 +24,6 @@ from django.http import HttpRequest
 from django.template import RequestContext
 from datetime import datetime
 from .models import Lead
-#from mailchimp import utils
-
-MAILCHIMP_LIST_ID = ""
 
 def landing_page(request):
     """Renders the landing page."""
