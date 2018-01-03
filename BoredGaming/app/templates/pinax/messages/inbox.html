@@ -1,3 +1,38 @@
-{% extends "../../app/layout.html" %}
+{% extends "../../app/layout.html"%}
+{% load pinax_messages_tags %}
 {% block content %}
+<div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+            <h3 class="card-header flex-header">
+               <span class="header-span">Inbox</span>
+                <span class="input-group-btn">
+                    <a href='{% url "pinax_messages:message_create" %}' class="btn btn-success"><i class="fa fa-envelope"></i> New Message</a>
+                </span> 
+            </h3>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                {% for thread in threads %}
+                    <li class="list-group-item">
+                        <span class="thread">{% if thread|unread:user %}<i class="fa fa-envelope-o"></i>{% else %}<i class="fa fa-envelope-open-o">{% endif %}</span>
+                        <a href="{{ thread.get_absolute_url }}">
+                            <div class="row">
+                                <span class="col-sm-2 users">
+                                    {{ thread.users.all|join:", "}}
+                                </span>
+                                <div class="col-sm-10">
+                                    <p class="subject">{{ thread.subject }}</p>
+                                    <p class="content text-muted">{{ thread.latest_message.content }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                {% empty %}
+                <li class="list-group-item">You have no messages.</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
