@@ -54,6 +54,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'pinax.messages',
+    'bootstrap4',
     #'mailchimp',
 ]
 

@@ -113,7 +113,7 @@ class ProfileForm(forms.ModelForm):
         widget = forms.Textarea(
             attrs = {
                 'class': 'form-control',
-                'name': 'first_name'
+                'name': 'bio'
                 }
             ))
     hometown = forms.CharField(
@@ -122,7 +122,7 @@ class ProfileForm(forms.ModelForm):
         widget = forms.TextInput(
             attrs = {
                 'class': 'form-control',
-                'name': 'last_name'
+                'name': 'hometown'
                 }
             ))
     rpg_class = forms.CharField(
@@ -131,7 +131,7 @@ class ProfileForm(forms.ModelForm):
         widget = forms.TextInput(
             attrs = {
                 'class': 'form-control',
-                'name': 'last_name'
+                'name': 'rpg_class'
                 }
             ))
 
