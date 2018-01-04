@@ -16,7 +16,7 @@
                     <li class="list-group-item">
                         <a href="{{ thread.get_absolute_url }}">
                             <div class="row">
-                                <span class="thread col-sm-1">{% if thread|unread:user %}<i class="fa fa-envelope-o fa-3x"></i>{% else %}<i class="fa fa-envelope-open-o fa-3x">{% endif %}</span>
+                                <span class="thread col-sm-1">{% if thread|unread:user %}<i class="fa fa-envelope-o fa-3x"></i>{% else %}<i class="fa fa-envelope-open-o fa-3x"></i>{% endif %}</span>
                                 <span class="col-sm-2 users">
                                     {{ thread.users.all|join:", "}}
                                 </span>

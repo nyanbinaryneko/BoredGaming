@@ -1,0 +1,39 @@
+{% extends "../../app/layout.html" %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+            <h3 class="card-header">{{ thread.subject }}</h3>
+            <ul class="list-group list-group-flush">
+                {% for message in thread.messages.all %}
+                <li class="list-group-item">
+                    <p class="text-muted">
+                        {{ message.sender.username }} - {{ message.sent_at }}
+                    </p>
+                    <div>{{ message.content|urlize|linebreaks }}</div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="row space">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+            <h3 class="card-header">Reply</h3>
+            <div class="card-body">
+                <form class="comment-form" action="{% url "pinax_messages:thread_detail" thread.pk %}" method="post">
+                    {% csrf_token %}
+                    {% bootstrap_form form %}
+                    {% buttons %}
+                    <button class="btn btn-success">Send</button>
+                    <a href="{% url "pinax_messages:inbox" %}" class="btn btn-danger">Cancel</a>
+                    <a href="{% url "pinax_messages:thread_delete" thread.pk %}" class="btn btn-danger"> Delete Thread</a>
+                    {% endbuttons %}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

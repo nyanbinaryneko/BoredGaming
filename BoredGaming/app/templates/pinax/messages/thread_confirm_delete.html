@@ -1,0 +1,19 @@
+{% extends "../../app/layout.html" %}
+{% load bootstrap4 %}
+{% block content %}
+<div class="row">
+    <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+            <h3 class="card-header">Delete Thread?</h3>
+            <div class="card-body">
+                <p class="lead">Are you sure you want to delete this thread?</p>
+                <p><b>{{ thread }}</b></p>
+                <form action="{{ post_url }}" method="POST" class="form form-horizontal">
+                    <a href="{% url "pinax_messages:inbox" %}" class="btn btn-primary">Cancel</a>
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
