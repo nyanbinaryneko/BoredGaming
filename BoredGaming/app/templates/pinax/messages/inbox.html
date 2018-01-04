@@ -14,13 +14,13 @@
                 <ul class="list-group list-group-flush">
                 {% for thread in threads %}
                     <li class="list-group-item">
-                        <span class="thread">{% if thread|unread:user %}<i class="fa fa-envelope-o"></i>{% else %}<i class="fa fa-envelope-open-o">{% endif %}</span>
                         <a href="{{ thread.get_absolute_url }}">
                             <div class="row">
+                                <span class="thread col-sm-1">{% if thread|unread:user %}<i class="fa fa-envelope-o fa-3x"></i>{% else %}<i class="fa fa-envelope-open-o fa-3x">{% endif %}</span>
                                 <span class="col-sm-2 users">
                                     {{ thread.users.all|join:", "}}
                                 </span>
-                                <div class="col-sm-10">
+                                <div class="col-sm-9">
                                     <p class="subject">{{ thread.subject }}</p>
                                     <p class="content text-muted">{{ thread.latest_message.content }}</p>
                                 </div>

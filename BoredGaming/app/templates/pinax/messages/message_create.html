@@ -1,0 +1,18 @@
+{% extends "../../app/layout.html"%}
+{% block content %}
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-md-12">
+        <div class="card">
+            <h3 class="card-header">New Message</h3>
+            <div class="card-body">
+                <form class="comment-form" action="{% url "pinax_messages:message_create" %}" method="post">
+                    {% csrf_token %}
+                    {{ form }}
+                    <button class="btn btn-primary">Send</button>
+                </form>
+                <a class="btn btn-default" href="{% url "pinax_messages:inbox" %}">Cancel</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
